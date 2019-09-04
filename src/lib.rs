@@ -15,10 +15,19 @@
 //! assert_eq!(decode_buffer, [0, 0, 1, 1, 0, 2, 3, 1, 0, 2, 3, 1, 0, 2, 3, 1, 0]);
 //! ```
 
-use std::{
-    ptr,
-    ops,
-};
+#![feature(alloc_prelude)]
+#![cfg_attr(not(test), no_std)]
+
+#[cfg(not(test))]
+extern crate alloc;
+#[cfg(not(test))]
+use alloc::prelude::v1::*;
+
+#[cfg(not(test))]
+use core::{ptr,ops,};
+
+#[cfg(test)]
+use std::{ptr, ops};
 
 /// Fast decoding of run length encoded data
 ///
